@@ -1,4 +1,4 @@
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1") # Museos del mundo
+# ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Museos del mundo") Museos del mundo
 Development in R to do web scraping UOC
 
 ## Author
