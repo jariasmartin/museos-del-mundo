@@ -1,0 +1,92 @@
+# PAC 1 TIPOLOGIA DE DATOS
+---
+title: "PRACTICA1 TIPLOGIA"
+output: html_document
+---
+## Instalar Dependencias de paquetes
+
+```{r,echo=FALSE}
+install.packages("xml2")
+install.packages("rvest")
+install.packages("magrittr")
+install.packages("ggmap")
+```
+## Setup
+
+Realizamos el Setup, donde indicaremos en que ID de páginas queremos comenzar y acabar el Web Scraping.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+init <-16180
+end <- 16190
+```
+
+Cargamos las librerias necesarias
+
+```{r}
+library('xml2')
+library('rvest')
+library('magrittr')
+library('ggmap')
+```
+
+Disponemos de API KEY de Google Maps para disponer de las 2500 peticiones diarias permitidas
+API KEY Google = AIzaSyBPTAP-V0GnwAu3qsn4uIN5rMLdS0pP4Og
+
+```{r}
+#register_google(key = 'AIzaSyBPTAP-V0GnwAu3qsn4uIN5rMLdS0pP4Og')
+```
+
+## Estructura
+
+Creamos el Dataframe y nombramos las columnas
+* La columna ID contendrá el indicador de la página de origen de donde se extrajo la información
+* La columna Name contiene el nombre del museo
+* La columna Adress contiene la dirección física donde se encuentra el museo
+* La columna Lon contienen la longitud de la ubicación según resuelve Google Maps
+* La columna Lat contienen la latitud de la ubicación según resuelve Google Maps
+
+```{r}
+df <- data.frame(matrix(ncol = 5,nrow = 0))
+x <- c("Id", "Name" , "Adress" , "Lon" , "Lat")
+colnames(df) <- x
+```
+
+## Bucle de generación de Dataframe
+
+Con el bucle FOR vamos cargando las columnas del dataframe con los datos de la web
+
+```{r}
+for (i in init:end){
+  url <- paste("http://www.museum.com/jb/museum?id=",i,sep="")
+  head(url)
+  webpage <- read_html(url)
+  
+  title_data_html <- html_nodes(webpage,xpath = "/html/body/table[2]/tr/td/center/b/font")
+  adress_data_html <- html_nodes(webpage,xpath = "/html/body/table[2]/tr/td/p/font")
+  #Converting the ranking data to text
+  
+  title_data <- html_text(title_data_html)
+  adress_data <- html_text(adress_data_html)
+  adress_data <- gsub("[\r\n]"," ",adress_data)
+  adress_data <- trimws(adress_data,"both")
+  for (j in 1:5){
+    location <- geocode(adress_data)
+    if (!is.na(location$lon)) break
+    print(j)
+  }
+  
+  if (!identical(character(0),title_data)) {
+    df[nrow(df) + 1,] <- c(i,title_data,adress_data,location$lon,location$lat)
+  } 
+}
+```
+
+## Creación de fichero de salida CSV
+
+Creamos el CSV de nombre *museos_del_mundo.csv*
+
+```{r}
+write.csv(df,file="museos_del_mundo.csv",qmethod ="escape")
+```
+
