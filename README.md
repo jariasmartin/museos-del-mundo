@@ -14,11 +14,35 @@ Practice 1
 ## Files: 
 * README.md  Resumen de los datos
 * PRACTICA1_TIPOLOGIA.Rmd Fichero para ejecutar en RStudio desde elque se genera el CSV
-* df.csv Resultado de ejecutar el fichero anterior
+* museos_del_mundo.csv Resultado de ejecutar el fichero anterior
 
 ## Resumen
 En esta práctica se elabora un caso práctico orientado a aprender a identificar los datos relevantes por un proyecto analítico y usar las herramientas de extracción de datos.
 Para hacer esta práctica tendréis que trabajar en grupos de 3 o 2 personas, o si preferís, también podéis hacerlo de manera individual. Tendréis que entregar un solo fichero con el enlace Github
+
+En este caso, vamos a descargar un listado de museos del mundo con su direccción, y vamos a recuperar de Google Maps la Latitud y la Longitud de su ubicación.
+
+El resultado de ejecutar PRACTICA1_TIPOLOGIA.Rmd indicando el inicio y fin del ID , será el fichero museos_del_mundo.csv.
+Este documento contiene separado por comas (,) y entrecomillado ("") los datos solicitados que serán los siguientes:
+* *ID* que contiene el identificador de la página de origen
+* *Name* que contiene el nombre del museo
+* *Address* Que contiene la dirección física del museo
+* *Lon* Longitud de la ubicación 
+* *Lat* Latitud de la ubicación
+
+El propietario de los datos en una Web pública sin animo de lucro de promoción cultural
+
+## Agradecimientos
+
+Agradecer a TONI de museum.com el esfuerzo que está realizando para recopilar la información que viene recogida
+
+## Por que
+
+Soy un apasionado de la cultura Cultur Lover, y aunque el trabajo y los estudios... no me dejan profundizar más , será mi pasión cuando me jubile.
+
+## Licencia
+
+Database released under *Open Database License*, No es necesario el reconocimiento y es aplicable tanto a los datos como al contenido de los ficheros, pudiendose utilizar para uso comercial
 
 ## Preguntas Realizadas
 1. Título del dataset. Poned un título que sea descriptivo.
